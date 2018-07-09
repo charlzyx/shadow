@@ -1,0 +1,2 @@
+# shadow
+hide in bash
