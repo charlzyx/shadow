@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Input Group</h3>
+    <h3>Radio Group</h3>
     <div>
       {{$props}}
     </div>
@@ -10,7 +10,7 @@
 <script>
 import { baseProps ,genDefaults } from './props'
 
-const defaults = { ...baseProps, label: 'Input' };
+const defaults = { ...baseProps, label: 'Radio' };
 export default {
   props: genDefaults(defaults),
 }

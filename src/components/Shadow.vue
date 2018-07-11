@@ -1,118 +1,73 @@
 <template>
-    <div id="shadow">
+  <div class="hideinbush">
+    <h1>Shadow</h1>
+    <div class="shadow">
       <div class="col">
-        <Input
-          :id="input.id"
-          :feId="input.feId"
-          :field="input.field"
-          :valid="input.valid"
-          :visibleWhen="input.visibleWhen"
-          :disabled="input.disabled"
-          :label="input.label"
-          :value="input.value"
-          :placeholder="input.placeholder"
-          :ruler="input.ruler"
-          :keyType="input.keyType"
-          :suggest="input.suggest"
-          @onChange="inputOnChange"
-        />
+        <drag
+          v-for="(comp, index) in comps"
+          :key="index"
+          @dragstart="dragstart"
+        >
+          <component
+            :is="comp"
+          />
+        </drag>
       </div>
-      <div class="col">
-        {{input}}
+      <div class="col" @drop="drop" @dragover="dragover">
       </div>
     </div>
+  </div>
 </template>
+
 <script>
-import Input from './Input';
+import FFormGroup from './FormGroup';
+import FInput from './Input';
+import FOption from './Option';
+import FSelect from './Select';
+import FRadioGroup from './RadioGroup';
+import FCheckboxGroup from './CheckboxGroup';
+import FTimePicker from './TimePicker';
+import Drag from './Drag';
 
-
-const types = [
-  'Input',
-  'Select',
-  'TimePicker',
-  'RadioGroup',
-  'CheckboxGroup',
-  'ImgUploader',
-  'Option'
-];
-
-export const baseProps = {
-  id: null,
-  feId: null,
-  field: null,
-  valid: true,
-  visibleWhen: true,
-  disabled: false,
-  label: 'welldone',
-  value: null,
-  placeholder: '你好啊',
-  ruler: {
-    when: ['onblur', 'onsubmit'],
-    rule: Function | RegExp | String,
-    tip: '格式不正确'
-  },
-}
-
-const InputProps = {
-  ...baseProps,
-  value: '',
-  keyType: ['number', 'phone', 'email'],
-  suggest: {
-    api: 'api/suggest',
-    param: { any: null },
-  },
-}
-
-const OptionProps = {
-  ...baseProps,
-}
-
-const TimePicker = {
-  ...baseProps,
-  type: 'YYYY-MM-DD HH:mm:ss',
-  range: false,
-  min: Date | 'now',
-  max: Date | 'now',
-  limit: Date,
-}
-
-const SelectProps = {
-  ...baseProps,
-  options: [OptionProps]
-}
-
-const RadioGroupProps = {
-  ...baseProps,
-  options: [OptionProps]
-}
-const CheckBoxGroupProps = {
-  ...baseProps,
-  options: [OptionProps]
-}
+const comps = {
+  FFormGroup,
+  FInput,
+  FOption,
+  FSelect,
+  FRadioGroup,
+  FCheckboxGroup,
+  FTimePicker,
+  Drag,
+};
 export default {
-  components: { Input },
+  components: comps,
   data() {
     return {
-      input: {
-        ...InputProps,
-      },
+      comps: Object.keys(comps),
     }
   },
   methods: {
-    inputOnChange(val) {
-      this.input.value = val;
+    dragstart(e) {
+      console.table(JSON.parse(JSON.stringify(e, null, 2)));
+    },
+    dragover(e) {
+
+    },
+    drop(e) {
+
     }
   }
 }
 </script>
-<style scoped>
-#shadow {
+
+<style>
+.shadow {
   display: flex;
-  flex-direction: 'row';
 }
 .col {
   flex: 1;
   padding: 10px;
+  border-right: 1px solid #000;
 }
-</style>
 
+</style>
