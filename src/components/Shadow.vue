@@ -3,58 +3,52 @@
     <h1>Shadow</h1>
     <div class="shadow">
       <div class="col">
-        <drag
+        <component
           v-for="(comp, index) in comps"
           :key="index"
-          @dragstart="dragstart"
-        >
+          :is="comp"
+        />
+      </div>
+      <drop class="col" @drop="drop" @dragover="dragover">
+        <drag>
           <component
-            :is="comp"
+            v-for="(props, index) in propsList"
+            :key="index"
+            :is="props.type"
           />
+          {{propsList}}
         </drag>
-      </div>
-      <div class="col" @drop="drop" @dragover="dragover">
-      </div>
+      </drop>
     </div>
   </div>
 </template>
 
 <script>
-import FFormGroup from './FormGroup';
-import FInput from './Input';
-import FOption from './Option';
-import FSelect from './Select';
-import FRadioGroup from './RadioGroup';
-import FCheckboxGroup from './CheckboxGroup';
-import FTimePicker from './TimePicker';
+import Group from './Group';
+import Input from './Input';
 import Drag from './Drag';
+import Drop from './Drop';
 
 const comps = {
-  FFormGroup,
-  FInput,
-  FOption,
-  FSelect,
-  FRadioGroup,
-  FCheckboxGroup,
-  FTimePicker,
-  Drag,
+  Input,
+  Group,
 };
 export default {
-  components: comps,
+  components: {...comps, Drag, Drop },
   data() {
     return {
       comps: Object.keys(comps),
+      currentProps: null,
+      propsList: [],
     }
   },
   methods: {
-    dragstart(e) {
-      console.table(JSON.parse(JSON.stringify(e, null, 2)));
-    },
     dragover(e) {
 
     },
     drop(e) {
-
+      console.log('drop', e);
+      this.propsList.push(e);
     }
   }
 }

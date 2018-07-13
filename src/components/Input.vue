@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h3>Input Group</h3>
+    <h3>Input</h3>
+    <drag :dragProps="$props" />
     <div>
       {{$props}}
     </div>
@@ -9,9 +10,11 @@
 
 <script>
 import { baseProps ,genDefaults } from './props'
+import Drag from './Drag';
 
-const defaults = { ...baseProps, label: 'Input' };
+const defaults = { ...baseProps, label: 'Input', type: 'Input' };
 export default {
+  components: { Drag },
   props: genDefaults(defaults),
 }
 </script>

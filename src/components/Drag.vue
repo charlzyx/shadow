@@ -1,21 +1,19 @@
 <template>
-  <div @dragstart="dragstart" draggable>
-    <slot />
+  <div @dragstart.stop="dragstart" draggable>
+    <slot>
+      <div>点我拖动</div>
+    </slot>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      childProps: null,
-    }
-  },
+  props: ['dragProps'],
   methods: {
-    dragstart(e) {
-      const vnode = this.$slots.default[0];
-      const props = vnode && vnode.componentInstance.$props;
-      this.$emit('dragstart', props);
+    dragstart(ev) {
+      const vnode = this.$slots.default && this.$slots.default[0];
+      const props = this.dragProps || vnode && vnode.componentInstance.$props;
+      ev.dataTransfer.setData("text/plain", JSON.stringify(props));
     },
   }
 
