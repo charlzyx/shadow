@@ -9,16 +9,10 @@
           :is="comp"
         />
       </div>
-      <drop class="col" @drop="drop" @dragover="dragover">
-        <drag>
-          <component
-            v-for="(props, index) in propsList"
-            :key="index"
-            :is="props.type"
-          />
-          {{propsList}}
-        </drag>
-      </drop>
+      <div class="col">
+        <group v-bind="groupDefaults">
+        </group>
+      </div>
     </div>
   </div>
 </template>
@@ -28,11 +22,17 @@ import Group from './Group';
 import Input from './Input';
 import Drag from './Drag';
 import Drop from './Drop';
+import { baseProps ,genDefaults } from './props'
 
 const comps = {
   Input,
   Group,
 };
+
+
+
+const groupDefaults = { ...baseProps, label: 'Group', type: 'Group', id: 'rootId', groupId: 'rootGroup' };
+
 export default {
   components: {...comps, Drag, Drop },
   data() {
@@ -40,16 +40,16 @@ export default {
       comps: Object.keys(comps),
       currentProps: null,
       propsList: [],
+      groupDefaults,
     }
   },
   methods: {
-    dragover(e) {
-
-    },
-    drop(e) {
-      console.log('drop', e);
-      this.propsList.push(e);
-    }
+    // drop(e) {
+    //   if (e.type === 'Group') {
+    //     const comp = makeId(e);
+    //     this.propsList.push(comp);
+    //   }
+    // }
   }
 }
 </script>

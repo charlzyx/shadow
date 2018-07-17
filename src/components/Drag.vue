@@ -1,7 +1,11 @@
 <template>
-  <div @dragstart.stop="dragstart" draggable>
+  <div
+    @dragstart.stop="dragstart"
+    @dragend.stop="dragend"
+    draggable
+  >
     <slot>
-      <div>点我拖动</div>
+      <div>拖我</div>
     </slot>
   </div>
 </template>
@@ -15,11 +19,13 @@ export default {
       const props = this.dragProps || vnode && vnode.componentInstance.$props;
       ev.dataTransfer.setData("text/plain", JSON.stringify(props));
     },
+    dragend(ev) {
+      this.$emit('dragend');
+    }
   }
 
 }
 </script>
 
 <style>
-
 </style>

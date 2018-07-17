@@ -5,16 +5,18 @@
 </template>
 
 <script>
-import bus from './bus';
 export default {
   methods: {
     drop(ev) {
-      const propsStr = ev.dataTransfer.getData("text");
-      this.$emit('drop', JSON.parse(propsStr));
-      bus.using = false;
+      const itemPropsStr = ev.dataTransfer.getData("text");
+      const itemProps = JSON.parse(itemPropsStr);
+      this.$emit('drop', {
+        itemProps,
+        ev
+      });
     },
-    dragover(e) {
-      this.$emit('dragover', e);
+    dragover(ev) {
+      this.$emit('dragover', ev);
     }
   }
 

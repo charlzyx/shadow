@@ -1,9 +1,10 @@
 export const baseProps = {
-  formId: null,
+  groupId: null,
   id: null,
-  value: null,
-  label: null,
-  type: null
+  sortIndex: null,
+  // value: null,
+  // label: null,
+  // type: null
 }
 
 const is = (val, type) => Object.prototype.toString.call(val) === `[Object ${type}]`
