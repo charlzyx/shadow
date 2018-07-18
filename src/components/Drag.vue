@@ -1,7 +1,6 @@
 <template>
   <div
     @dragstart.stop="dragstart"
-    @dragend.stop="dragend"
     draggable
   >
     <slot>
@@ -15,13 +14,12 @@ export default {
   props: ['dragProps'],
   methods: {
     dragstart(ev) {
-      const vnode = this.$slots.default && this.$slots.default[0];
-      const props = this.dragProps || vnode && vnode.componentInstance.$props;
+      console.log('start', this, props);
+      // const vnode = this.$slots.default && this.$slots.default[0];
+      // const props = this.dragProps || vnode && vnode.componentInstance.$props;
+      const props = this.dragProps
       ev.dataTransfer.setData("text/plain", JSON.stringify(props));
     },
-    dragend(ev) {
-      this.$emit('dragend');
-    }
   }
 
 }

@@ -10,28 +10,30 @@
         />
       </div>
       <div class="col">
-        <group v-bind="groupDefaults">
-        </group>
+        <group-item v-bind="groupDefaults">
+        </group-item>
       </div>
+      <drop @drop="dropToRm" class="col drop-rm-zone">
+      </drop>
     </div>
   </div>
 </template>
 
 <script>
-import Group from './Group';
-import Input from './Input';
+import GroupItem from './GroupItem';
+import InputItem from './InputItem';
 import Drag from './Drag';
 import Drop from './Drop';
-import { baseProps ,genDefaults } from './props'
+import { groupProps, genDefaults } from './props';
 
 const comps = {
-  Input,
-  Group,
+  GroupItem,
+  InputItem,
 };
 
 
 
-const groupDefaults = { ...baseProps, label: 'Group', type: 'Group', id: 'rootId', groupId: 'rootGroup' };
+const groupDefaults = { ...groupProps, label: 'Group', type: 'Group', id: 'rootId', groupId: 'rootGroup' };
 
 export default {
   components: {...comps, Drag, Drop },
@@ -44,12 +46,12 @@ export default {
     }
   },
   methods: {
-    // drop(e) {
-    //   if (e.type === 'Group') {
-    //     const comp = makeId(e);
-    //     this.propsList.push(comp);
-    //   }
-    // }
+    dropToRm({itemProps, ev}) {
+      this.$store.commit('RM_ITEM_AT_GROUP', itemProps);
+    }
+  },
+  mounted() {
+    this.$store.commit('INIT_FORM', groupDefaults)
   }
 }
 </script>
@@ -62,6 +64,10 @@ export default {
   flex: 1;
   padding: 10px;
   border-right: 1px solid #000;
+}
+.drop-rm-zone {
+  height: 100px;
+  background: #ebb;
 }
 
 </style>
