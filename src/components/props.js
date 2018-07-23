@@ -3,9 +3,12 @@ export const baseProps = {
   groupId: null,
   items: [],
   type: null,
-  sortIndex: null
-  // value: null,
-  // label: null,
+  sortIndex: null,
+  value: null,
+  label: null,
+  when: null,
+  valid: true,
+  field: ''
 }
 export const groupProps = {
   ...baseProps,
@@ -15,6 +18,11 @@ export const groupProps = {
 export const inputProps = {
   ...baseProps,
   type: 'Input'
+}
+
+export const optionProps = {
+  ...baseProps,
+  type: 'Option'
 }
 
 const is = (val, type) => Object.prototype.toString.call(val) === `[object ${type}]`

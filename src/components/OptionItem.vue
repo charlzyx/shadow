@@ -1,17 +1,17 @@
 <template>
   <div>
     <item v-bind="$props" @willInsert="willInsert">
-      Input Content
+      option Content
     </item>
   </div>
 </template>
 
 <script>
 import Item from './Item';
-import { inputProps, genDefaults } from './props'
+import { optionProps, genDefaults } from './props'
 
 export default {
-  props: genDefaults(inputProps),
+  props: genDefaults(optionProps),
   components: { Item },
   methods: {
     willInsert(args) {

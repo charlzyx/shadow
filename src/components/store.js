@@ -6,13 +6,13 @@ Vue.use(Vuex)
 let uuid = 0
 
 const findItemById = (id, items) => {
-  console.log(id)
   for (let i = 0; i < items.length; i++) {
     const item = items[i]
 
     if (item.id === id) return item
     if (Array.isArray(item.items)) {
-      return findItemById(id, item.items)
+      const subItem = findItemById(id, item.items)
+      if (subItem) return subItem
     }
   }
   return false
@@ -23,7 +23,8 @@ const findItemsById = (id, items) => {
     const item = items[i]
     if (item.id === id) return item.items
     if (Array.isArray(item.items)) {
-      return findItemsById(id, item.items)
+      const subItem = findItemsById(id, item.items)
+      if (subItem) return subItem
     }
   }
   return false
@@ -37,13 +38,16 @@ const makeId = (item, groupId = ++uuid) => {
 
 const store = new Store({
   state: {
-    form: []
+    form: [],
+    editingItemId: null
   },
   getters: {
     getItemsById: state => groupId => {
       const items = findItemsById(groupId, state.form)
-      console.log('getters items', items)
       return items || []
+    },
+    editingItem (state) {
+      return findItemById(state.editingItemId, state.form)
     }
   },
   mutations: {
@@ -83,6 +87,13 @@ const store = new Store({
         group.items = group.items.filter(xitem => xitem.id !== item.id)
           .map((i, index) => ({ ...i, sortIndex: index }))
       }
+    },
+    SET_EDIT_ITEM_ID (state, itemId) {
+      state.editingItemId = itemId
+    },
+    CAHNGE_ITEM_PROPS (state, { key, val }) {
+      const editingItem = findItemById(state.editingItemId, state.form)
+      Vue.set(editingItem, key, val)
     }
   }
 })

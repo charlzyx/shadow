@@ -13,8 +13,13 @@
         <group-item v-bind="groupDefaults">
         </group-item>
       </div>
-      <drop @drop="dropToRm" class="col drop-rm-zone">
-      </drop>
+      <div class="col">
+        <drop @drop="dropToRm" class="col drop-rm-zone">
+        </drop>
+        <div>
+          <props-editor></props-editor>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,13 +27,16 @@
 <script>
 import GroupItem from './GroupItem';
 import InputItem from './InputItem';
+import OptionItem from './OptionItem';
 import Drag from './Drag';
 import Drop from './Drop';
+import PropsEditor from './PropsEditor';
 import { groupProps, genDefaults } from './props';
 
 const comps = {
   GroupItem,
   InputItem,
+  OptionItem,
 };
 
 
@@ -36,7 +44,7 @@ const comps = {
 const groupDefaults = { ...groupProps, label: 'Group', type: 'Group', id: 'rootId', groupId: 'rootGroup' };
 
 export default {
-  components: {...comps, Drag, Drop },
+  components: {...comps, Drag, Drop, PropsEditor },
   data() {
     return {
       comps: Object.keys(comps),

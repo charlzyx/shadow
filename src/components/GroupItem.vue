@@ -1,20 +1,20 @@
 <template>
   <div class="group-item">
-    <item type="Group" v-bind="JSON.parse(JSON.stringify($props))" @willInsert="willInsert">
+    <item v-bind="$props" @willInsert="willInsert">
       <div class="group-op-area">
         <drop @drop="dropIn" class="group-drop-in">
           放置区域
         </drop>
       </div>
       <div class="sd-item-area">
-          <component
-            :is="`${props.type}Item`"
-            v-for="props in citems"
-            :key="props.id"
-            v-bind="props"
-            @willInsert="sortComp"
-          />
-        </div>
+        <component
+          :is="`${props.type}Item`"
+          v-for="props in citems"
+          :key="props.id"
+          v-bind="props"
+          @willInsert="sortComp"
+        />
+      </div>
     </item>
   </div>
 </template>
@@ -22,12 +22,14 @@
 <script>
 import Item from './Item';
 import InputItem from './InputItem';
+import OptionItem from './OptionItem';
 import Drag from './Drag';
 import Drop from './Drop';
 import { groupProps, genDefaults } from './props';
 
 const comps = {
   InputItem,
+  OptionItem,
 }
 
 
@@ -54,15 +56,12 @@ export default {
     },
     willInsert(args) {
       this.$emit('willInsert', args);
-    }
+    },
   }
 }
 </script>
 
 <style>
-.group-item .group-item {
-  padding-left: 10px;
-}
 .group-op-area {
   display: flex;
   height: 40px;

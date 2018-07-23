@@ -1,8 +1,8 @@
 <template>
   <div class="sd-form-item">
-    <drag :dragProps="JSON.parse(JSON.stringify($props))" class="item-head" >
+    <drag :dragProps="$props" class="item-head" >
       <drop @drop="sortDrop" class="item-head-drop">
-        <div>{{$props.type}}: {{$props.id}} | {{$props.groupId}}</div>
+        <div>{{$props.label}}-{{$props.type}}: {{$props.id}} | {{$props.groupId}}</div>
       </drop>
     </drag>
     <div class="item-content">
@@ -31,7 +31,8 @@ export default {
 </script>
 
 <style>
-.sd-form-item {
+.sd-form-item .sd-form-item {
+  padding-left: 10px;
 }
 .sd-form-item .item-head {
   background: #77affc;
