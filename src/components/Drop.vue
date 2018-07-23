@@ -7,16 +7,16 @@
 <script>
 export default {
   methods: {
-    drop(ev) {
-      const itemPropsStr = ev.dataTransfer.getData("text");
-      const itemProps = JSON.parse(itemPropsStr);
+    drop (ev) {
+      const itemPropsStr = ev.dataTransfer.getData('text')
+      const itemProps = JSON.parse(itemPropsStr)
       this.$emit('drop', {
         itemProps,
         ev
-      });
+      })
     },
-    dragover(ev) {
-      this.$emit('dragover', ev);
+    dragover (ev) {
+      this.$emit('dragover', ev)
     }
   }
 

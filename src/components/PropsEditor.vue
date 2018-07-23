@@ -1,32 +1,39 @@
 <template>
   <drop class="prop-edit-area" @drop="toEdit">
-    <div v-for="key in itemKeys" :key="key" class="prop-edit-item">
-      <span>{{key}}</span><input :value="editingItem[key]" @input="ev => changeItem(key, ev)" type="text">
+    <div class="prop-edit-item">
+      <div>label</div>
+      <input-editor :value="editingItem.label" :change="val => changeItem('label', val)"></input-editor>
+    </div>
+    <div class="prop-edit-item">
+      <div>value</div>
+      <select-editor :value="editingItem.value" :options="editingItem.props.as" :change="val => changeItem('props.as', val)"></select-editor>
     </div>
   </drop>
 </template>
 
 <script>
+import Drop from './Drop'
+import InputEditor from './editors/InputEditor'
+import SelectEditor from './editors/SelectEditor'
 
-import Drop from './Drop';
 export default {
-  components: { Drop },
+  components: { Drop, InputEditor, SelectEditor },
   computed: {
-    editingItem() {
-      return this.$store.getters.editingItem
+    editingItem () {
+      return this.$store.getters.editingItem || {props: {}}
     },
-    itemKeys() {
+    itemKeys () {
       return Object.keys(this.editingItem)
     }
   },
   methods: {
-    toEdit({ itemProps, ev }) {
+    toEdit ({ itemProps, ev }) {
       if (itemProps.id) {
         this.$store.commit('SET_EDIT_ITEM_ID', itemProps.id)
       }
     },
-    changeItem(key, ev) {
-      const val = ev.target.value
+    changeItem (key, val) {
+      console.log('ddd', key, val)
       this.$store.commit('CAHNGE_ITEM_PROPS', { key, val })
     }
   }

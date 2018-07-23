@@ -8,8 +8,10 @@ export const baseProps = {
   label: null,
   when: null,
   valid: true,
-  field: ''
+  field: '',
+  props: null
 }
+
 export const groupProps = {
   ...baseProps,
   type: 'Group'
@@ -22,7 +24,10 @@ export const inputProps = {
 
 export const optionProps = {
   ...baseProps,
-  type: 'Option'
+  type: 'Option',
+  props: {
+    as: ['switch', 'option', 'radio', 'checkbox']
+  }
 }
 
 const is = (val, type) => Object.prototype.toString.call(val) === `[object ${type}]`

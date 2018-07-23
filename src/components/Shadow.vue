@@ -25,40 +25,38 @@
 </template>
 
 <script>
-import GroupItem from './GroupItem';
-import InputItem from './InputItem';
-import OptionItem from './OptionItem';
-import Drag from './Drag';
-import Drop from './Drop';
-import PropsEditor from './PropsEditor';
-import { groupProps, genDefaults } from './props';
+import GroupItem from './GroupItem'
+import InputItem from './InputItem'
+import OptionItem from './OptionItem'
+import Drag from './Drag'
+import Drop from './Drop'
+import PropsEditor from './PropsEditor'
+import { groupProps } from './props'
 
 const comps = {
   GroupItem,
   InputItem,
-  OptionItem,
-};
+  OptionItem
+}
 
-
-
-const groupDefaults = { ...groupProps, label: 'Group', type: 'Group', id: 'rootId', groupId: 'rootGroup' };
+const groupDefaults = { ...groupProps, label: 'Group', type: 'Group', id: 'rootId', groupId: 'rootGroup' }
 
 export default {
-  components: {...comps, Drag, Drop, PropsEditor },
-  data() {
+  components: { ...comps, Drag, Drop, PropsEditor },
+  data () {
     return {
       comps: Object.keys(comps),
       currentProps: null,
       propsList: [],
-      groupDefaults,
+      groupDefaults
     }
   },
   methods: {
-    dropToRm({itemProps, ev}) {
-      this.$store.commit('RM_ITEM_AT_GROUP', itemProps);
+    dropToRm ({itemProps, ev}) {
+      this.$store.commit('RM_ITEM_AT_GROUP', itemProps)
     }
   },
-  mounted() {
+  mounted () {
     this.$store.commit('INIT_FORM', groupDefaults)
   }
 }

@@ -7,15 +7,15 @@
 </template>
 
 <script>
-import Item from './Item';
+import Item from './Item'
 import { inputProps, genDefaults } from './props'
 
 export default {
   props: genDefaults(inputProps),
   components: { Item },
   methods: {
-    willInsert(args) {
-      this.$emit('willInsert', args);
+    willInsert (args) {
+      this.$emit('willInsert', args)
     }
   }
 }

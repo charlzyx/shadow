@@ -12,19 +12,19 @@
 </template>
 
 <script>
-import Drag from './Drag';
-import Drop from './Drop';
+import Drag from './Drag'
+import Drop from './Drop'
 import { baseProps, genDefaults } from './props'
 
 export default {
   components: { Drag, Drop },
   props: genDefaults(baseProps),
   methods: {
-    sortDrop({ itemProps }) {
+    sortDrop ({ itemProps }) {
       this.$emit('willInsert', {
         insertItem: JSON.parse(JSON.stringify(itemProps)),
-        refItem: JSON.parse(JSON.stringify(this.$props)),
-      });
+        refItem: JSON.parse(JSON.stringify(this.$props))
+      })
     }
   }
 }

@@ -13,10 +13,10 @@
 export default {
   props: ['dragProps'],
   methods: {
-    dragstart(ev) {
+    dragstart (ev) {
       const props = this.dragProps
-      ev.dataTransfer.setData("text/plain", JSON.stringify(props));
-    },
+      ev.dataTransfer.setData('text/plain', JSON.stringify(props))
+    }
   }
 
 }
