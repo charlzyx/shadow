@@ -32,7 +32,8 @@ const findItemsById = (id, items) => {
 
 const makeId = (item, groupId = ++uuid) => {
   if (!item.groupId) item.groupId = groupId
-  if (!item.id) item.id = ++uuid
+  if (!item.id) item.id = `fe_${++uuid}`
+  if (!item.value) item.value = item.id
   return item
 }
 

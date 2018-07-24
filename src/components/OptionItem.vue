@@ -1,7 +1,7 @@
 <template>
   <div>
     <item v-bind="$props" @willInsert="willInsert">
-      {{value}}
+      {{$props}}
     </item>
   </div>
 </template>

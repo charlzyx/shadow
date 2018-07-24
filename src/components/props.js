@@ -9,12 +9,18 @@ export const baseProps = {
   when: null,
   valid: true,
   field: '',
-  props: null
+  as: null,
+  enums: null
 }
 
 export const groupProps = {
   ...baseProps,
-  type: 'Group'
+  type: 'Group',
+  value: [],
+  as: 'form',
+  enums: {
+    as: ['form', 'select', 'radiogroup', 'checkboxgroup', 'switchgroup']
+  }
 }
 
 export const inputProps = {
@@ -25,7 +31,8 @@ export const inputProps = {
 export const optionProps = {
   ...baseProps,
   type: 'Option',
-  props: {
+  as: 'switch',
+  enums: {
     as: ['switch', 'option', 'radio', 'checkbox']
   }
 }

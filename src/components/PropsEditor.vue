@@ -5,8 +5,16 @@
       <input-editor :value="editingItem.label" :change="val => changeItem('label', val)"></input-editor>
     </div>
     <div class="prop-edit-item">
+      <div>as</div>
+      <select-editor :value="editingItem.as" :options="editingItem.enums.as" :change="val => changeItem('as', val)"></select-editor>
+    </div>
+    <div class="prop-edit-item" v-if="editingItem.type !== 'Group'">
       <div>value</div>
-      <select-editor :value="editingItem.value" :options="editingItem.props.as" :change="val => changeItem('props.as', val)"></select-editor>
+      <input-editor :value="editingItem.value" :change="val => changeItem('value', val)"></input-editor>
+    </div>
+    <div class="prop-edit-item" v-if="editingItem.type === 'Group'">
+      <div>value</div>
+      <option-group-editor :groupId="editingItem.id" :value="editingItem.value" :change="val => changeItem('value', val)"></option-group-editor>
     </div>
   </drop>
 </template>
@@ -15,12 +23,13 @@
 import Drop from './Drop'
 import InputEditor from './editors/InputEditor'
 import SelectEditor from './editors/SelectEditor'
+import OptionGroupEditor from './editors/OptionGroupEditor'
 
 export default {
-  components: { Drop, InputEditor, SelectEditor },
+  components: { Drop, InputEditor, SelectEditor, OptionGroupEditor },
   computed: {
     editingItem () {
-      return this.$store.getters.editingItem || {props: {}}
+      return this.$store.getters.editingItem || {enums: {}}
     },
     itemKeys () {
       return Object.keys(this.editingItem)
